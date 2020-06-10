@@ -1,0 +1,47 @@
+.search-container{
+    margin:40px auto;
+    padding:10px 30px;
+    background-color:white;
+    width:50%;
+    text-align: center;
+    border-radius: 10px;
+}
+
+input[type="search"] {
+    width: 70%;
+    height: 30px;
+  }
+
+.era{
+    margin:20px;
+}
+
+.title{
+    margin:10px;
+}
+
+.tweets-container{
+    padding:  10px;
+    display: flex;
+    align-items:stretch;
+    justify-content:space-around;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: auto;
+}
+.tweet{
+    
+    border-radius:  5px;
+   width: 20%;
+   padding: 10px;
+   margin-right: auto;
+   
+}
+
+p{
+    text-align: center;
+}
+.tweet-edit-delete {
+    text-align: center;
+}
+

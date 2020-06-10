@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vintagehurugi</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+  </head>
+
+  <body>
+  
+   <header>
+    <h1 class="title">温故知新</h1>
+    <div class="header-list">
+     <ul>
+      <% if user_signed_in? %>  <!-- deviseのメソッドで、「ログインしているかしていないかでtrue or falseを返す」メソッド -->
+        <li><%= link_to "新規投稿", new_tweet_path %></li>
+        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+        <li><%= link_to "ツイート一覧", tweets_path %></li>
+        <li><%= link_to "ユーザー一覧", users_path %></li>
+      <% else %>
+        <li><%= link_to "新規登録", new_user_registration_path %></li>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
+      <% end %>   
+     </ul>   
+    </div>
+   </header>
+   
+
+   
+    
+    <%= yield %>
+
+  </body>
+</html>

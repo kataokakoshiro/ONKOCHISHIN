@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag 'tweets', :media => "all" %>
+
+<div class="tweet-main">
+<%= form_for @tweet do |f| %>
+
+    <%= f.select :country, [["アメリカ", "アメリカ"], ["イギリス", "イギリス"],["日本","日本"],["フランス","フランス"],["イタリア","イタリア"],["ドイツ","ドイツ"],["オランダ","オランダ"],["スイス","スイス"],["スウェーデン","スウェーデン"],["スペイン","スペイン"],["チェコ","チェコ"],["ポルトガル","ポルトガル"],["ロシア","ロシア"],["ベルギー","ベルギー"],["エジプト","エジプト"],["インド","インド"],["中国","中国"],["韓国","韓国"],["その他","その他"]], include_blank: "国を選択して下さい" %>
+    
+    <p>
+     
+     <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %> 
+       <%= tag.label do %>
+         <%= tag.check_box %>
+         <%= tag.text %>
+       <% end %>
+     <% end %>
+    </p>
+
+    <div class="field">
+      <%= f.label :image %>
+      <%= f.file_field :image %>
+    </div>
+
+    <p>
+      <%= f.label :body,"ツイート" %>
+      <%= f.text_field :body %>
+    </p>
+    
+    
+    <%= f.submit '投稿する' %>
+<% end %>
+</div>

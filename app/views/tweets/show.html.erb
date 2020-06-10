@@ -1,0 +1,31 @@
+<h1>Tweets#show</h1>
+<p>Find me in app/views/tweets/show.html.erb</p>
+
+<p><span>name: </span><%= @user.name %></p>
+<p><span>email: </span><%= @user.email %></p>
+
+
+<hr>
+<if t.image >
+     <%= image_tag @tweet.image_url,:size => '100×50' %> 
+    <end> 
+<p>
+ <span>年代:</span>
+ <% @tweet.tags.each do |tag| %>
+    <%= tag.name %>
+ <% end %>
+</p>
+<p><span>国：</span><%= @tweet.country %></p>
+<p><span>ツイート内容: </span><%= @tweet.body %></p>
+
+<% if user_signed_in? && @tweet.user_id == current_user.id %>
+       <%= link_to "編集する", edit_tweet_path(@tweet.id) %>
+       <%= link_to "削除する", tweet_path(@tweet.id), method: :delete %>
+      <% end %>
+  
+
+<hr>
+ 
+
+
+   

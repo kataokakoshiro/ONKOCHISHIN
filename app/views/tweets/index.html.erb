@@ -1,0 +1,84 @@
+<%= stylesheet_link_tag 'tweets_index', :media => "all" %>
+
+<div class = search>
+ <div class="search-container">
+  <p class="title">Search</p>
+  <div class= "keyword">
+   <%= search_form_for @q do |f| %>
+     <%= f.label :body, "Keyword" %>
+      <%= f.search_field :body_cont %>
+     <%= f.submit "検索" %>  
+   <% end %>
+  </div>
+   <hr>
+   <div class="era"> 
+   <%= form_tag tweets_path, method: :get, class: 'boards__searchForm' do %>
+    <%= select_tag :tag_id,
+                 options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+                 {
+                   prompt: '年代で検索',
+                   onchange: 'submit(this.form);'
+                 }
+     %>
+   <% end %>
+  </div> 
+ </div>
+</div>
+<div class="tweets-container">
+ <% @tweets.each do |tweet| %>
+    
+    <div class="tweet">
+      <p><span>name: </span><%=link_to tweet.user.name, user_path(tweet.user.id) %></p>
+      <p>
+        <if t.image >
+          <%= image_tag tweet.image_url,:size => '200×150' %> 
+        <end>
+      </p>  
+      <p><span>国：</span><%= tweet.country %></p>
+      <p>
+       <span>年代:</span>
+       <% tweet.tags.each do |tag| %>
+        <%= tag.name %>
+       <% end %>
+      </p>   
+      <p><span> </span><%=link_to tweet.body, tweet_path(tweet.id) %></p>
+  
+     <div class = "tweet-check">
+      <% if user_signed_in? %>
+      <% if tweet.favorited_by?(current_user) %> <!-- ログインしているユーザーがファボしたかどうかで分岐 -->
+        <p><span>◯: </span><%=link_to tweet.favorites.count, tweet_favorites_path(tweet.id), method: :delete %></p>
+       <% else %>
+        <p><span>◯: </span><%=link_to tweet.favorites.count, tweet_favorites_path(tweet.id), method: :post %></p>
+       <% end %>
+      <% else %>
+       <p><span>◯: </span><%= tweet.favorites.count %></p>
+      <% end %>
+      <% if user_signed_in? %>
+      <% if tweet.gooded_by?(current_user) %> <!-- ログインしているユーザーがファボしたかどうかで分岐 -->
+        <p><span>△: </span><%=link_to tweet.goods.count, tweet_goods_path(tweet.id), method: :delete %></p>
+       <% else %>
+        <p><span>△: </span><%=link_to tweet.goods.count, tweet_goods_path(tweet.id), method: :post %></p>
+       <% end %>
+      <% else %>
+       <p><span>△: </span><%= tweet.goods.count %></p>
+      <% end %>
+      <% if user_signed_in? %>
+      <% if tweet.baded_by?(current_user) %> <!-- ログインしているユーザーがファボしたかどうかで分岐 -->
+        <p><span>✕: </span><%=link_to tweet.bads.count, tweet_bads_path(tweet.id), method: :delete %></p>
+       <% else %>
+        <p><span>✕: </span><%=link_to tweet.bads.count, tweet_bads_path(tweet.id), method: :post %></p>
+       <% end %>
+      <% else %>
+       <p><span>✕: </span><%= tweet.bads.count %></p>
+      <% end %>
+     </div> 
+
+     <div class="tweet-edit-delete">
+      <% if user_signed_in? && tweet.user_id == current_user.id %>
+       <%= link_to "編集する", edit_tweet_path(tweet.id) %>
+       <%= link_to "削除する", tweet_path(tweet.id), method: :delete %>
+      <% end %>
+     </div>  
+    </div>  
+ <% end %>
+</div> 
