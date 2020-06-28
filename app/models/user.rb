@@ -14,6 +14,6 @@ class User < ApplicationRecord
    has_many :bads
    has_many :bad_tweets, through: :bads, source: :tweet
    
-
+   has_many :comments, dependent: :destroy
 
 end

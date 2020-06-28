@@ -1,37 +1,38 @@
 <%= stylesheet_link_tag 'tweets_index', :media => "all" %>
 
 <div class = search>
- <div class="search-container">
-  <p class="title">Search</p>
-  <div class= "keyword">
-   <%= search_form_for @q do |f| %>
-     <%= f.label :body, "Keyword" %>
-      <%= f.search_field :body_cont %>
-     <%= f.submit "検索" %>  
-   <% end %>
-  </div>
+  <div class="search-container">
+    <p class="title">Search</p>
+    <div class= "keyword">
+      <%= search_form_for @q do |f| %>
+        <%= f.label :body, "Keyword" %>
+        <%= f.search_field :body_cont %>
+        <%= f.submit "検索" %>  
+      <% end %>
+    </div>
    <hr>
-   <div class="era"> 
-   <%= form_tag tweets_path, method: :get, class: 'boards__searchForm' do %>
-    <%= select_tag :tag_id,
+    <div class="era"> 
+      <%= form_tag tweets_path, method: :get, class: 'boards__searchForm' do %>
+       <%= select_tag :tag_id,
                  options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
                  {
                    prompt: '年代で検索',
                    onchange: 'submit(this.form);'
                  }
-     %>
-   <% end %>
-  </div> 
- </div>
+         %>
+      <% end %>
+    </div> 
+  </div>
 </div>
-<div class="tweets-container">
+<div class="tweets">
  <% @tweets.each do |tweet| %>
     
-    <div class="tweet">
-      <p><span>name: </span><%=link_to tweet.user.name, user_path(tweet.user.id) %></p>
+    <div class="tweet-container">
+      <p class = "name"><%=link_to tweet.user.name, user_path(tweet.user.id) %></p>
       <p>
         <if t.image >
-          <%= image_tag tweet.image_url,:size => '200×150' %> 
+          <%= image_tag tweet.image_url,:size => '150×150' %> 
+         
         <end>
       </p>  
       <p><span>国：</span><%= tweet.country %></p>
@@ -41,8 +42,9 @@
         <%= tag.name %>
        <% end %>
       </p>   
-      <p><span> </span><%=link_to tweet.body, tweet_path(tweet.id) %></p>
-  
+      <p><%=link_to tweet.body, tweet_path(tweet.id) %></p>
+     
+
      <div class = "tweet-check">
       <% if user_signed_in? %>
       <% if tweet.favorited_by?(current_user) %> <!-- ログインしているユーザーがファボしたかどうかで分岐 -->

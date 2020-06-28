@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
     resource :goods, only: [:create, :destroy]
     resource :bads, only: [:create, :destroy]
+    resources :comments, only: [:create]
   end
 
   resources :users
