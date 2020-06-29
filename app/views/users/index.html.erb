@@ -1,0 +1,11 @@
+<%= stylesheet_link_tag 'users_index', :media => "all" %>
+
+<h1>ユーザー一覧</h1>
+
+<div class="user">
+  <div class = "user-container">
+   <% @users.each do |user| %>
+      <p class="user-name"><%=link_to user.name, user_path(user.id) %></p>
+   <% end %>
+  </div> 
+</div>  

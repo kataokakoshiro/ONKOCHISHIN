@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vintagehurugi</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.google.com/specimen/IM+Fell+Double+Pica?preview.size=60&selection.family=IM+Fell+Double+Pica#standard-styles" rel="stylesheet">
+    
+  </head>
+
+  <body>
+  
+   <header>
+    <h1 class="header-title">ONKOCHISHIN</h1>
+    <div class="header-list">
+     <ul>
+      <% if user_signed_in? %>  <!-- deviseのメソッドで、「ログインしているかしていないかでtrue or falseを返す」メソッド -->
+        <li><%= link_to "新規投稿", new_tweet_path %></li>
+        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <li><%= link_to "マイページ", user_path(current_user.id) %></li>
+        <li><%= link_to "ツイート一覧", tweets_path %></li>
+        <li><%= link_to "ユーザー一覧", users_path %></li>
+      <% else %>
+      <!-- <li><%= link_to "新規登録", new_user_registration_path %></li> -->
+      <!--   <li><%= link_to "ログイン", new_user_session_path %></li> -->
+      <% end %>   
+     </ul>   
+    </div>
+   </header>
+   <footer>
+      <p class ="footer-letter">Copyright © 2020 KoshiroKataoka All Rights Reserved.</p>
+   </footer>
+   
+
+   
+    
+    <%= yield %>
+
+  </body>
+</html>
