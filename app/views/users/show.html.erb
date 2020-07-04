@@ -2,99 +2,85 @@
 
 <p class="name"><%= @user.name %><span>さんのマイページ</span></p>
 <div class="my-tweets">
- <div class="tweets user">
-  <h1><%= @user.name %>さんの投稿</h1>
-  <% @tweets.each do |tweet| %>
-   <div class = "tweet-image">
-    <if t.image >
-      <%= image_tag tweet.image_url,:size => '100×50' %> 
-    <end>
-   </div>
-   <div class ="tweet-letter"> 
-    <p><span>国：</span><%= tweet.country %></p>
-    <p>
-       <span>年代:</span>
-       <% tweet.tags.each do |tag| %>
-         <%= tag.name %>
-       <% end %>
-    </p>   
-    <p><%=link_to tweet.body, tweet_path(tweet.id) %></p>
-    <div class = "tweet-check">
-      
-      
-       <p><span>◯: </span><%= tweet.favorites.count %></p>
-      
-       <p><span>△: </span><%= tweet.goods.count %></p>
-      
-       <p><span>✕: </span><%= tweet.bads.count %></p>
-      
-   </div> 
-    <% if user_signed_in? && tweet.user_id == current_user.id %>
-    <p> <%= link_to "編集する", edit_tweet_path(tweet.id) %></p>
-    <p> <%= link_to "削除する", tweet_path(tweet.id), method: :delete %></p>
-   </div>
-  <% end %>
-  <hr>
-  <% end %>
- </div>
-
- <div class="tweets favorite">
-  <h1>〇△投稿</h1>
-  <% @favorite_tweets.each do |tweet| %>
-   
-    <p class="image">
-    <if t.image >
-      <%= image_tag tweet.image_url,:size => '100×50' %> 
-    <end>
-    </p>
-    <p><span>国：</span><%= tweet.country %></p> 
-    <p>
-     <span>年代:</span>
-     <% tweet.tags.each do |tag| %>
-      <%= tag.name %>
-     <% end %>
-    </p>   
-    <p><%=link_to tweet.body, tweet_path(tweet.id) %></p>
-    <div class = "tweet-check">
-      
-      
-       <p><span>◯: </span><%= tweet.favorites.count %></p>
-      
-       <p><span>△: </span><%= tweet.goods.count %></p>
-      
-       <p><span>✕: </span><%= tweet.bads.count %></p>
-      
-   </div> 
-    <hr>
-  <% end %>
-  <% @good_tweets.each do |tweet| %>
-   
-    <p class="image">
-    <if t.image >
-      <%= image_tag tweet.image_url,:size => '100×50' %> 
-    <end>
-    </p>
-    <p><span>国：</span><%= tweet.country %></p> 
-    <p>
-     <span>年代:</span>
-     <% tweet.tags.each do |tag| %>
-      <%= tag.name %>
-     <% end %>
-    </p>   
-    <p><%=link_to tweet.body, tweet_path(tweet.id) %></p>
-    <div class = "tweet-check">
-      
-      
-       <p><span>◯: </span><%= tweet.favorites.count %></p>
-      
-       <p><span>△: </span><%= tweet.goods.count %></p>
-      
-       <p><span>✕: </span><%= tweet.bads.count %></p>
-      
-   </div> 
-    <hr>
-  <% end %>
+  <div class="my-tweets-container user">
+    <h1><%= @user.name %>さんの投稿</h1>
+    <% @tweets.each do |tweet| %>
+      <div class = "tweet-image">
+        <if t.image >
+          <%= image_tag tweet.image_url,:size => '100×50' %> 
+        <end>
+      </div>
+      <div class ="tweet-letter"> 
+        <p><span>国：</span><%= tweet.country %></p>
+        <p>
+          <span>年代:</span>
+          <% tweet.tags.each do |tag| %>
+            <%= tag.name %>
+          <% end %>
+        </p>   
+        <p><%=link_to tweet.body, tweet_path(tweet.id) %></p>
+        <div class = "tweet-check">
+          <p><span>◯: </span><%= tweet.favorites.count %></p>
+          <p><span>△: </span><%= tweet.goods.count %></p>
+          <p><span>✕: </span><%= tweet.bads.count %></p>
+        </div> 
+        <% if user_signed_in? && tweet.user_id == current_user.id %>
+          <p> <%= link_to "編集する", edit_tweet_path(tweet.id) %></p>
+          <p> <%= link_to "削除する", tweet_path(tweet.id), method: :delete %></p>
+        <% end %>
+      </div> 
+     <hr>  
+    <% end %>
+         
+  </div>   
  
-
- </div> 
+  <div class="my-tweets-container check">
+    <h1>〇△投稿</h1>
+    <% @favorite_tweets.each do |tweet| %>
+      <p class="image">
+        <if t.image >
+          <%= image_tag tweet.image_url,:size => '100×50' %> 
+        <end>
+      </p>
+      <div class ="tweet-letter"> 
+        <p><span>国：</span><%= tweet.country %></p> 
+        <p>
+          <span>年代:</span>
+            <% tweet.tags.each do |tag| %>
+              <%= tag.name %>
+            <% end %>
+        </p>   
+        <p><%=link_to tweet.body, tweet_path(tweet.id) %></p>
+        <div class = "tweet-check">
+          <p><span>◯: </span><%= tweet.favorites.count %></p>
+          <p><span>△: </span><%= tweet.goods.count %></p>
+          <p><span>✕: </span><%= tweet.bads.count %></p>      
+        </div> 
+      </div>  
+      <hr>
+    <% end %>
+    <% @good_tweets.each do |tweet| %> 
+      <p class="image">
+        <if t.image >
+          <%= image_tag tweet.image_url,:size => '100×50' %> 
+        <end>
+      </p>
+      <div class ="tweet-letter"> 
+        <p><span>国：</span><%= tweet.country %></p> 
+        <p>
+          <span>年代:</span>
+          <% tweet.tags.each do |tag| %>
+            <%= tag.name %>
+          <% end %>
+        </p>   
+        <p><%=link_to tweet.body, tweet_path(tweet.id) %></p>
+        <div class = "tweet-check">
+          <p><span>◯: </span><%= tweet.favorites.count %></p>
+          <p><span>△: </span><%= tweet.goods.count %></p>
+          <p><span>✕: </span><%= tweet.bads.count %></p>
+        </div>
+      </div> 
+      <hr>
+    <% end %>
+  </div> 
 </div>
