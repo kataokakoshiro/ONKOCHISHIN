@@ -5,6 +5,7 @@
   <div class="my-tweets-container user">
     <h1><%= @user.name %>さんの投稿</h1>
     <% @tweets.each do |tweet| %>
+     <div class="my-tweets-container-box"> 
       <div class = "tweet-image">
         <if t.image >
           <%= image_tag tweet.image_url,:size => '100×50' %> 
@@ -23,13 +24,16 @@
           <p><span>◯: </span><%= tweet.favorites.count %></p>
           <p><span>△: </span><%= tweet.goods.count %></p>
           <p><span>✕: </span><%= tweet.bads.count %></p>
-        </div> 
-        <% if user_signed_in? && tweet.user_id == current_user.id %>
-          <p> <%= link_to "編集する", edit_tweet_path(tweet.id) %></p>
-          <p> <%= link_to "削除する", tweet_path(tweet.id), method: :delete %></p>
-        <% end %>
+        </div>
+        <div class = "tweet-edit-delete"> 
+         <% if user_signed_in? && tweet.user_id == current_user.id %>
+           <%= link_to "編集する", edit_tweet_path(tweet.id) %>
+           <%= link_to "削除する", tweet_path(tweet.id), method: :delete %>
+         <% end %>
+        </div>
       </div> 
-     <hr>  
+      
+     </div>  
     <% end %>
          
   </div>   
@@ -37,7 +41,8 @@
   <div class="my-tweets-container check">
     <h1>〇△投稿</h1>
     <% @favorite_tweets.each do |tweet| %>
-      <p class="image">
+     <div class="my-tweets-container-box">  
+      <p class="tweet-image">
         <if t.image >
           <%= image_tag tweet.image_url,:size => '100×50' %> 
         <end>
@@ -57,10 +62,12 @@
           <p><span>✕: </span><%= tweet.bads.count %></p>      
         </div> 
       </div>  
-      <hr>
+      
+     </div> 
     <% end %>
     <% @good_tweets.each do |tweet| %> 
-      <p class="image">
+     <div class="my-tweets-container-box">  
+      <p class="tweet-image">
         <if t.image >
           <%= image_tag tweet.image_url,:size => '100×50' %> 
         <end>
@@ -80,7 +87,9 @@
           <p><span>✕: </span><%= tweet.bads.count %></p>
         </div>
       </div> 
-      <hr>
+     
+     </div> 
     <% end %>
+
   </div> 
 </div>
