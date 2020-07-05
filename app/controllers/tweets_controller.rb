@@ -8,7 +8,7 @@ class TweetsController < ApplicationController
   def index
     @tweets = Tweet.all
     @q = Tweet.ransack(params[:q])
-   # @tweets = params[:tag_id].present? ? Tag.find(params[:tag_id]).tweets : Tweet.all
+    @tweets = params[:tag_id].present? ? Tag.find(params[:tag_id]).tweets : Tweet.all
     @tweets = @q.result(distinct: true)||tag
   end
 
