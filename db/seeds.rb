@@ -6,4 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-%W[コーヒ コーラ お茶 紅茶 ミルクティ 水].each { |tag| Tag.create(name: tag) }
+Tag.create([
+    { name: "~1910's" },
+    { name: "1920's"},
+    { name: "1930's"},
+    { name: "1940's"},
+    { name: "1950's"},
+    { name: "1960's"},
+    { name: "1970's"},
+    { name: "1980's"},
+    { name: "1990's~"}
+    ])
